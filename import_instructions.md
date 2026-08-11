@@ -1,5 +1,93 @@
 # Evernote → Google Keep Import Instructions
 
+## Prerequisites
+
+You need **Python 3**, a **project virtual environment**, and the packages in
+`requirements.txt` (including **gkeepapi**). Work from the project directory:
+
+```bash
+cd ~/Projects/Keep
+```
+
+### 1. Check Python 3
+
+```bash
+python3 --version
+```
+
+You want Python **3.10+** (3.12 is fine). If the command is missing, install
+Python 3 for your OS (for example on Ubuntu/Debian):
+
+```bash
+sudo apt update
+sudo apt install python3 python3-venv python3-pip
+```
+
+Also confirm `venv` is available:
+
+```bash
+python3 -m venv --help >/dev/null && echo "venv OK"
+```
+
+### 2. Create a virtual environment
+
+If `.venv` does not already exist:
+
+```bash
+python3 -m venv .venv
+```
+
+Activate it (optional when you call `.venv/bin/python3` directly):
+
+```bash
+source .venv/bin/activate
+```
+
+Upgrade packaging tools inside the venv:
+
+```bash
+.venv/bin/python3 -m pip install --upgrade pip setuptools wheel
+```
+
+### 3. Install gkeepapi and other dependencies
+
+Preferred (pinned versions from this repo):
+
+```bash
+.venv/bin/pip install -r requirements.txt
+```
+
+That installs **gkeepapi**, **gpsoauth**, **beautifulsoup4**, **lxml**, and
+**requests**.
+
+Minimal install only (if you are not using `requirements.txt`):
+
+```bash
+.venv/bin/pip install gkeepapi beautifulsoup4 lxml
+```
+
+### 4. Verify the install
+
+```bash
+.venv/bin/python3 -c "import gkeepapi; print('gkeepapi', getattr(gkeepapi, '__version__', 'unknown'))"
+.venv/bin/python3 -c "from bs4 import BeautifulSoup; import lxml; print('bs4 + lxml OK')"
+.venv/bin/python3 test_gkeepapi.py
+```
+
+You should see a gkeepapi version (this project targets **0.17.x**) and
+successful Keep object initialization. If imports fail, re-run the `pip install`
+step and confirm you are using `.venv/bin/python3` / `.venv/bin/pip`, not system
+Python.
+
+### Quick re-check later
+
+```bash
+test -x .venv/bin/python3 && echo "venv present"
+.venv/bin/python3 -c "import gkeepapi, bs4, lxml; print('deps OK')"
+```
+
+After prerequisites are in place, continue with the master-token setup below.
+
 ## One-time setup: get a master token
 
 1. Open a private/incognito browser window.
