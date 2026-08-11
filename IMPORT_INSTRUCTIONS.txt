@@ -1,18 +1,6 @@
 Evernote → Google Keep Import Instructions
 ==========================================
 
-Your ENEX file parses fine. Real import needs a Google master token.
-gkeepapi 0.17+ no longer accepts a normal password or App Password.
-
-
-What was wrong
---------------
-  keep.login(email, password)  → fails with BadAuthentication
-
-Correct path:
-  keep.authenticate(email, master_token)
-
-
 One-time setup: get a master token
 ----------------------------------
 1. Open a private/incognito browser window.
@@ -26,14 +14,14 @@ One-time setup: get a master token
    (it usually starts with "oauth2_4/")
 7. From this project directory, run:
 
-     cd /home/jtrom/Projects/Keep
+     cd /home/username/Projects/Keep
      .venv/bin/python3 import_evernote_to_keep.py --setup-token
 
 8. Paste your Google email and the oauth_token cookie when prompted.
 
 The script exchanges the cookie for a master token and saves it to:
 
-  /home/jtrom/Projects/Keep/.keep_token
+  /home/username/Projects/Keep/.keep_token
 
 Security: the master token has full access to your Google account.
 Treat it like a password. Do not commit .keep_token to git
@@ -112,4 +100,3 @@ Your master token is missing, expired, or invalid. Re-run:
   .venv/bin/python3 import_evernote_to_keep.py --setup-token
 
 Use a fresh oauth_token cookie from a private browser session.
-}
