@@ -19,6 +19,10 @@ from datetime import datetime, timezone
 import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
 
+# Default project paths under $HOME (portable across machines/usernames)
+_PROJECT_DIR = os.path.join(os.path.expanduser("~"), "Projects", "Keep")
+
+
 def parse_args():
     parser = argparse.ArgumentParser(
         description="Memory-efficient importer from Evernote (.enex) to Google Keep.",
@@ -31,7 +35,7 @@ def parse_args():
     parser.add_argument(
         "--enex",
         type=str,
-        default="/home/jtrom/Projects/Keep/Evernote Notebook.enex",
+        default=os.path.join(_PROJECT_DIR, "Evernote Notebook.enex"),
         help="Path to the Evernote Notebook.enex file"
     )
     parser.add_argument(
@@ -47,7 +51,7 @@ def parse_args():
     parser.add_argument(
         "--token-file",
         type=str,
-        default="/home/jtrom/Projects/Keep/.keep_token",
+        default=os.path.join(_PROJECT_DIR, ".keep_token"),
         help="Path to cache/read email + master token (JSON or plain token text)"
     )
     parser.add_argument(
@@ -58,13 +62,13 @@ def parse_args():
     parser.add_argument(
         "--cache-file",
         type=str,
-        default="/home/jtrom/Projects/Keep/.imported_notes_cache.json",
+        default=os.path.join(_PROJECT_DIR, ".imported_notes_cache.json"),
         help="Path to track which notes have already been successfully imported"
     )
     parser.add_argument(
         "--attachments-dir",
         type=str,
-        default="/home/jtrom/Projects/Keep/extracted_attachments",
+        default=os.path.join(_PROJECT_DIR, "extracted_attachments"),
         help="Directory to save extracted note attachments"
     )
     parser.add_argument(
@@ -641,7 +645,7 @@ def main():
                     metadata_suffix.append("\nLocal Attachments:")
                     for path, _ in local_attachments:
                         # Store relative or absolute path based on workspace
-                        rel_path = os.path.relpath(path, "/home/jtrom/Projects/Keep")
+                        rel_path = os.path.relpath(path, _PROJECT_DIR)
                         metadata_suffix.append(f"- {rel_path}")
                         
                 if tags:

@@ -1,8 +1,9 @@
+import os
 import xml.etree.ElementTree as ET
 import sys
 from bs4 import BeautifulSoup
 
-enex_path = "/home/jtrom/Projects/Keep/Evernote Notebook.enex"
+enex_path = os.path.expanduser("~/Projects/Keep/Evernote Notebook.enex")
 
 print("Starting sample parse of Evernote Notebook.enex...")
 

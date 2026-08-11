@@ -12,6 +12,7 @@ env/
 # Local import state / caches
 .imported_notes_cache.json
 import_time_estimate.txt
+resume_grok_session.sh
 __pycache__/
 *.pyc
 *.pyo
