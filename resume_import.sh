@@ -103,7 +103,7 @@ if [[ "$DRY_RUN" -eq 0 && ! -f "$TOKEN_FILE" ]]; then
   echo "No master token file at: $TOKEN_FILE" >&2
   echo "Set one up first:" >&2
   echo "  $0 --setup-token" >&2
-  echo "See IMPORT_INSTRUCTIONS.txt for Edge/browser steps." >&2
+  echo "See import_instructions.md for Edge/browser steps." >&2
   exit 1
 fi
 
