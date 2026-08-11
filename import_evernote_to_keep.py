@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Evernote to Google Keep Import Tool
-Author: Gemini CLI
+Author: Jason A. Trommetter (with assistance from Grok)
 Date: August 2026
 
 A robust, memory-efficient utility to parse massive Evernote (.enex) files 
