@@ -1,0 +1,30 @@
+# Virtualenv
+.venv/
+venv/
+env/
+
+# Secrets / auth (never commit)
+.keep_token
+*.token
+.env
+.env.*
+
+# Local import state / caches
+.imported_notes_cache.json
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+
+# Large local data (keep out of git — too big for GitLab)
+*.enex
+extracted_attachments/
+Evernote Notebook.enex
+
+# Editor / OS junk
+.DS_Store
+*.swp
+*~
+.idea/
+.vscode/

@@ -1,0 +1,44 @@
+Evernote to Google Keep Import - Time and Strategy Estimation
+================================================================
+
+Based on the size of your .enex file (1.1 GB), the time required will depend heavily on whether your notes are mostly text or contain many large attachments (images, PDFs, audio). 
+
+Here is a realistic breakdown of how long the process will take:
+
+1. Estimating Note Count
+------------------------
+* If text-heavy: A 1.1 GB file could easily contain 10,000 to 25,000 notes.
+* If attachment-heavy: It might contain 500 to 3,000 notes with embedded images/files.
+
+2. Time Estimates
+-----------------
+* Scenario A: Running a Dry Run (--dry-run)
+  - Time: 1 to 4 minutes
+  - Since this only parses the local XML file and extracts attachments to disk without talking to Google, it is limited purely by your CPU and disk speed.
+
+* Scenario B: Text-Only / Standard Import (Without --upload-images)
+  - Speed: Roughly 0.5 to 1.5 seconds per note (due to network latency and Google Keep API response times).
+  - For 1,000 notes: 10 to 25 minutes
+  - For 10,000 notes: 2.5 to 4 hours
+
+* Scenario C: Image Uploads Enabled (--upload-images)
+  - Speed: Uploading images directly to Keep notes is much slower—averaging 2 to 5 seconds per image depending on your internet upload speed.
+  - For 1,000 images: 45 to 90 minutes
+
+3. Recommended Strategy
+-----------------------
+Because Google Keep can occasionally rate-limit or throttle rapid API requests, our import tool is specifically built with a resume cache (.imported_notes_cache.json). This means you do not have to do it all in one sitting.
+
+Recommended Steps:
+
+1. Run a 10-note test (Dry Run):
+   Verify the formatting of your text and metadata first.
+   $ .venv/bin/python3 import_evernote_to_keep.py --dry-run --limit 10
+
+2. Run a full Dry Run:
+   This will extract all attachments locally to extracted_attachments/ and print out the exact total number of notes you have.
+   $ .venv/bin/python3 import_evernote_to_keep.py --dry-run
+
+3. Start the actual import in batches (or let it run in the background):
+   If you ever need to stop, just press Ctrl + C. When you run the command again, it will pick up exactly where it left off!
+   $ .venv/bin/python3 import_evernote_to_keep.py
