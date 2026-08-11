@@ -26,6 +26,10 @@ Evernote Notebook.enex
 
 # Editor / OS junk
 .DS_Store
+Thumbs.db
+desktop.ini
+*:Zone.Identifier
+*.Zone.Identifier
 *.swp
 *~
 .idea/
